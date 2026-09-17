@@ -250,12 +250,14 @@ img {
 .gradient-text {
   background: var(--primary-gradient);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .accent-gradient-text {
   background: var(--accent-gradient);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -1918,4 +1920,38 @@ textarea.form-input {
     /* Darker wash on light backgrounds */
     border-color: rgba(124, 92, 252, 0.4);
   }
+}
+
+/* ==========================================================================
+   15. Contact Form Status Overrides
+   ========================================================================== */
+.form-status {
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  margin-top: 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity var(--transition-normal), transform var(--transition-normal);
+}
+
+.form-status.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.form-status.success {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid var(--emerald);
+  color: var(--emerald);
+}
+
+.form-status.error {
+  background: rgba(244, 63, 94, 0.15);
+  border: 1px solid var(--pink);
+  color: var(--pink);
 }

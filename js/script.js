@@ -352,24 +352,108 @@
       });
     }
 
-    // Contact Form Submission Toast
+    // Contact Form Submission (EmailJS Integration)
     const contactForm = document.getElementById('contactForm');
+    const formStatus = document.getElementById('formStatus');
+
     if (contactForm) {
+      if (window.emailjs) {
+        // NOTE: Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
+        emailjs.init("YOUR_PUBLIC_KEY");
+      }
+
       contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
+        
         const submitBtn = contactForm.querySelector('button[type="submit"]');
-        const origText = submitBtn.innerHTML;
+        const btnIcon = document.getElementById('btnIcon');
+        const btnText = document.getElementById('btnText');
+        
+        const nameInput = document.getElementById('senderName').value.trim();
+        const emailInput = document.getElementById('senderEmail').value.trim();
+        const subjectInput = document.getElementById('formSubject').value.trim();
+        const messageInput = document.getElementById('formMessage').value.trim();
+        
+        // Basic frontend validation
+        if(!nameInput || !emailInput || !subjectInput || !messageInput) {
+          showFormStatus('error', '<i class="bi bi-exclamation-circle-fill"></i> Please fill in all required fields.');
+          return;
+        }
+        
+        // Email format validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(emailInput)) {
+          showFormStatus('error', '<i class="bi bi-exclamation-circle-fill"></i> Please enter a valid email address.');
+          return;
+        }
 
+        // Show loading state
         submitBtn.disabled = true;
-        submitBtn.innerHTML = `<i class="bi bi-hourglass-split"></i> Sending...`;
+        const originalIconClass = btnIcon ? btnIcon.className : 'bi bi-send-fill';
+        const originalText = btnText ? btnText.innerText : 'Send Message';
+        
+        if (btnIcon) btnIcon.className = 'bi bi-hourglass-split';
+        if (btnText) btnText.innerText = 'Sending...';
 
-        setTimeout(() => {
-          alert('✨ Thank you! Your message has been sent successfully. I will get back to you shortly.');
-          contactForm.reset();
+        const templateParams = {
+          from_name: nameInput,
+          from_email: emailInput,
+          subject: subjectInput,
+          message: messageInput,
+          to_email: 'meghakadiya14@gmail.com'
+        };
+
+        // NOTE: Replace with your EmailJS Service ID and Template ID
+        const serviceID = 'YOUR_SERVICE_ID';
+        const templateID = 'YOUR_TEMPLATE_ID';
+
+        if(window.emailjs && serviceID !== 'YOUR_SERVICE_ID') {
+          emailjs.send(serviceID, templateID, templateParams)
+            .then(() => {
+              showFormStatus('success', '<i class="bi bi-check-circle-fill"></i> Thank you for reaching out! Your message has been sent successfully. I\'ll get back to you as soon as possible.');
+              contactForm.reset();
+              restoreButton();
+            })
+            .catch((err) => {
+              console.error('EmailJS Error:', err);
+              showFormStatus('error', '<i class="bi bi-x-circle-fill"></i> Something went wrong while sending your message. Please try again or contact me directly by email.');
+              restoreButton();
+            });
+        } else {
+          // Fallback simulation if EmailJS is not configured yet
+          setTimeout(() => {
+            showFormStatus('success', '<i class="bi bi-check-circle-fill"></i> Thank you for reaching out! Your message has been sent successfully. I\'ll get back to you as soon as possible.');
+            contactForm.reset();
+            restoreButton();
+          }, 1500);
+        }
+
+        function restoreButton() {
           submitBtn.disabled = false;
-          submitBtn.innerHTML = origText;
-        }, 1200);
+          if (btnIcon) btnIcon.className = originalIconClass;
+          if (btnText) btnText.innerText = originalText;
+        }
       });
+      
+      function showFormStatus(type, htmlContent) {
+        if (!formStatus) return;
+        formStatus.style.display = 'flex';
+        formStatus.className = `form-status ${type}`; // resets animations
+        formStatus.innerHTML = htmlContent;
+        
+        setTimeout(() => {
+          formStatus.classList.add('show');
+        }, 10);
+        
+        if (type === 'success') {
+          setTimeout(() => {
+            formStatus.classList.remove('show');
+            setTimeout(() => {
+              formStatus.style.display = 'none';
+            }, 300);
+          }, 6000);
+        }
+      }
     }
   }
 
@@ -483,6 +567,15 @@
     });
   }
 
+  // --------------------------------------------------------------------------
+  // 11. Right Click Block
+  // --------------------------------------------------------------------------
+  function initRightClickBlock() {
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
+  }
+
   // Master Init
   function mainInit() {
     initScrollToTop();
@@ -493,6 +586,7 @@
     initPortfolioFilter();
     initLightboxModal();
     initNavAndTheme();
+    initRightClickBlock();
   }
 
   if (document.readyState === 'loading') {

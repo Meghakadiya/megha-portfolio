@@ -661,7 +661,7 @@
           </div>
           <div>
             <div class="contact-label">Email Me</div>
-            <div class="contact-val">megha.dev@example.com</div>
+            <div class="contact-val">mmeghakadiya14@gmail.com</div>
           </div>
         </div>
 
@@ -671,7 +671,7 @@
           </div>
           <div>
             <div class="contact-label">Location</div>
-            <div class="contact-val">San Francisco, CA / Remote</div>
+            <div class="contact-val">Ahmedabad / Remote</div>
           </div>
         </div>
 
@@ -692,11 +692,11 @@
           <div class="form-row">
             <div class="form-group">
               <label class="form-label" for="senderName">Your Name</label>
-              <input type="text" id="senderName" class="form-input" placeholder="Alex Morgan" required>
+              <input type="text" id="senderName" class="form-input" placeholder="Enter Your Name" required>
             </div>
             <div class="form-group">
               <label class="form-label" for="senderEmail">Your Email</label>
-              <input type="email" id="senderEmail" class="form-input" placeholder="alex@company.com" required>
+              <input type="email" id="senderEmail" class="form-input" placeholder="Enter Your Email" required>
             </div>
           </div>
 
@@ -713,9 +713,11 @@
           </div>
 
           <button type="submit" class="btn-cta" style="width: 100%; justify-content: center; padding: 14px;">
-            <i class="bi bi-send-fill"></i>
-            <span>Send Message</span>
+            <i class="bi bi-send-fill" id="btnIcon"></i>
+            <span id="btnText">Send Message</span>
           </button>
+
+          <div id="formStatus" class="form-status" style="display: none;"></div>
         </form>
       </div>
     </div>
@@ -752,6 +754,9 @@
   <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top" title="Go to top">
     <i class="bi bi-chevron-up"></i>
   </button>
+
+  <!-- EmailJS Integration -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
   <!-- Master JavaScript Link -->
   <script src="js/script.js"></script>
