@@ -222,33 +222,47 @@
   // 5. Project Preview Modal Lightbox
   // --------------------------------------------------------------------------
   const projectDetailsMap = {
-    'apexpulse': {
-      title: 'ApexPulse — SaaS Analytics Dashboard',
-      category: 'SaaS / Web App',
-      description: 'A modern, high-performance analytics platform built for SaaS teams. Includes real-time Chart.js data visualizations, dark/light theme switching, filterable transactions table, and mobile off-canvas drawer.',
-      tech: ['HTML5', 'CSS3', 'JavaScript ES6+', 'Chart.js', 'Bootstrap 5'],
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80'
+    'damira': {
+      title: 'Damira — Ticket Management System',
+      category: 'Web Application',
+      description: 'A complete ticket management interface. I was responsible for the UI implementation, responsive design across all viewports, building filter interactions, popup interfaces, and addressing complex cross-browser bugs.',
+      tech: ['HTML', 'CSS', 'Bootstrap', 'JavaScript'],
+      image: 'https://placehold.co/800x500/1E293B/FFFFFF?text=Damira+Real+Screenshot'
     },
-    'novapay': {
-      title: 'NovaPay — Fintech Banking Solution',
-      category: 'Fintech / Mobile & Web',
-      description: 'Comprehensive digital wallet and banking platform featuring multi-currency transfers, biometric login mockups, dark mode financial reports, and transaction charts.',
-      tech: ['React', 'Node.js', 'TailwindCSS', 'Express'],
-      image: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=800&auto=format&fit=crop&q=80'
+    'iihglobal': {
+      title: 'IIH Global Platform',
+      category: 'Corporate Website',
+      description: 'A modern corporate website aiming for better conversion rates. Worked heavily on custom page layouts, component architecture, and theme optimizations ensuring pixel-perfect responsive behavior.',
+      tech: ['WordPress', 'Elementor', 'CSS3', 'Responsive Design'],
+      image: 'https://placehold.co/800x500/1E293B/FFFFFF?text=IIH+Global+Real+Screenshot'
     },
-    'aether': {
-      title: 'Aether — AI Content Creation Studio',
-      category: 'AI / SaaS',
-      description: 'Generative AI web workspace allowing users to write articles, craft social media copy, and generate high-resolution marketing assets with intuitive workflow history.',
-      tech: ['Vue.js', 'Python', 'FastAPI', 'Three.js'],
-      image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80'
+    'courierbidz': {
+      title: 'Courier Bidz Portal',
+      category: 'B2B SaaS',
+      description: 'Interactive dashboard UI designed for logistics. My role involved implementing responsive grids, mapping dashboard features, and structuring clean frontend modules.',
+      tech: ['HTML5', 'Sass', 'JavaScript', 'UI Components'],
+      image: 'https://placehold.co/800x500/1E293B/FFFFFF?text=Courier+Bidz+Real+Screenshot'
     },
-    'lumina': {
-      title: 'Lumina — Luxury E-Commerce Store',
+    'conceptcuisine': {
+      title: 'Concept Cuisine',
       category: 'E-Commerce',
-      description: 'High-end storefront featuring interactive 3D product previewers, smooth add-to-cart drawers, dynamic coupon checkout system, and responsive customer review gallery.',
-      tech: ['HTML5', 'Sass', 'Vanilla JS', 'Stripe API'],
-      image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&auto=format&fit=crop&q=80'
+      description: 'A visually rich, fully responsive layout built from Figma designs for a restaurant equipment storefront. Ensured pixel-perfect translation from complex design to maintainable code.',
+      tech: ['Figma', 'HTML5', 'Bootstrap', 'CSS'],
+      image: 'https://placehold.co/800x500/1E293B/FFFFFF?text=Concept+Cuisine+Real+Screenshot'
+    },
+    'dashboard': {
+      title: 'Analytics Dashboard UI',
+      category: 'Admin UI',
+      description: 'A custom data visualization interface with interactive sidebar navigation layered over fluid CSS grid layouts.',
+      tech: ['JavaScript', 'Chart.js', 'CSS3', 'Flexbox'],
+      image: 'https://placehold.co/800x500/1E293B/FFFFFF?text=Dashboard+UI+Real+Screenshot'
+    },
+    'todoapp': {
+      title: 'JavaScript Todo Application',
+      category: 'Utility App',
+      description: 'A lightweight Vanilla JavaScript tool for managing tasks securely in local storage, demonstrating robust DOM manipulation and core logical problem-solving skills.',
+      tech: ['Vanilla JS', 'LocalStorage', 'CSS3', 'DOM API'],
+      image: 'https://placehold.co/800x500/1E293B/FFFFFF?text=JS+Todo+App+Real+Screenshot'
     }
   };
 
@@ -576,12 +590,71 @@
     });
   }
 
+  // --------------------------------------------------------------------------
+  // 12. Scroll Animations (AOS integration)
+  // --------------------------------------------------------------------------
+  function initScrollAnimations() {
+    // 1. Inject AOS CSS
+    const aosCss = document.createElement('link');
+    aosCss.rel = 'stylesheet';
+    aosCss.href = 'https://unpkg.com/aos@next/dist/aos.css';
+    document.head.appendChild(aosCss);
+
+    // 2. Inject AOS JS
+    const aosJs = document.createElement('script');
+    aosJs.src = 'https://unpkg.com/aos@next/dist/aos.js';
+    aosJs.onload = function() {
+      // Define all elements to animate
+      const animElements = [
+        { selector: '.section-header', anim: 'fade-up' },
+        { selector: '.about-card', anim: 'fade-right' },
+        { selector: '.metric-card', anim: 'zoom-in', stagger: 100 },
+        { selector: '.skill-brand-card', anim: 'fade-up', stagger: 50 },
+        { selector: '.project-card', anim: 'fade-up', stagger: 150 },
+        { selector: '.resume-column:nth-child(1)', anim: 'fade-right' },
+        { selector: '.resume-column:nth-child(2)', anim: 'fade-left' },
+        { selector: '.resume-item-card', anim: 'fade-up', stagger: 50 },
+        { selector: '.contact-info-card', anim: 'fade-right' },
+        { selector: '.contact-form-card', anim: 'fade-left' },
+        { selector: '.hero-content', anim: 'fade-right' },
+        { selector: '.hero-visual-card', anim: 'fade-left', delay: 300 }
+      ];
+
+      // Add data-aos attributes programmatically
+      animElements.forEach(group => {
+        const els = document.querySelectorAll(group.selector);
+        els.forEach((el, idx) => {
+          if (!el.hasAttribute('data-aos')) {
+            el.setAttribute('data-aos', group.anim);
+          }
+          if (group.delay) {
+            el.setAttribute('data-aos-delay', group.delay);
+          } else if (group.stagger) {
+            // Cap stagger delay so grids don't take forever (resets every 6 items)
+            const delay = (idx % 6) * group.stagger;
+            el.setAttribute('data-aos-delay', delay);
+          }
+        });
+      });
+
+      // Initialize AOS
+      AOS.init({
+        duration: 850,
+        easing: 'ease-out-cubic',
+        once: true,
+        offset: 50
+      });
+    };
+    document.body.appendChild(aosJs);
+  }
+
   // Master Init
   function mainInit() {
     initScrollToTop();
     initCustomCursor();
     initParticleCanvas();
     initTypingEffect();
+    initScrollAnimations(); // Triggers AOS
     initScrollObservers();
     initPortfolioFilter();
     initLightboxModal();
