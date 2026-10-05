@@ -222,12 +222,12 @@
   // 5. Project Preview Modal Lightbox
   // --------------------------------------------------------------------------
   const projectDetailsMap = {
-    'damira': {
-      title: 'Damira — Ticket Management System',
-      category: 'Web Application',
-      description: 'A complete ticket management interface. I was responsible for the UI implementation, responsive design across all viewports, building filter interactions, popup interfaces, and addressing complex cross-browser bugs.',
-      tech: ['HTML', 'CSS', 'Bootstrap', 'JavaScript'],
-      image: 'https://placehold.co/800x500/1E293B/FFFFFF?text=Damira+Real+Screenshot'
+    'fitnation': {
+      title: 'FitNation Gym — Premium Strength & Conditioning',
+      category: 'Fitness & Health Web App',
+      description: 'A modern, high-energy fitness platform featuring interactive program selectors, customized transformation paths, an internal BMI calculator, and responsive 24/7 membership portals.',
+      tech: ['HTML5', 'CSS3', 'JavaScript', 'Responsive UI'],
+      image: 'assets/images/fitnation-gym.png'
     },
     'iihglobal': {
       title: 'IIH Global Platform',
