@@ -190,6 +190,7 @@
   function initPortfolioFilter() {
     const filterBtns = document.querySelectorAll('.filter-btn');
     const projectCards = document.querySelectorAll('.project-card');
+    const noProjectsMsg = document.getElementById('noProjectsMsg');
 
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -197,10 +198,12 @@
         btn.classList.add('active');
 
         const category = btn.getAttribute('data-filter');
+        let visibleCount = 0;
 
         projectCards.forEach(card => {
           const cardCat = card.getAttribute('data-category');
           if (category === 'all' || cardCat === category) {
+            visibleCount++;
             card.style.display = 'flex';
             setTimeout(() => {
               card.style.opacity = '1';
@@ -214,6 +217,16 @@
             }, 300);
           }
         });
+
+        if (noProjectsMsg) {
+          if (visibleCount === 0) {
+            setTimeout(() => {
+              noProjectsMsg.style.display = 'block';
+            }, 300);
+          } else {
+            noProjectsMsg.style.display = 'none';
+          }
+        }
       });
     });
   }
